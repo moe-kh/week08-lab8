@@ -18,6 +18,7 @@ public class AccountService {
         try {
             UserDB userDB = new UserDB();
             User user = userDB.getUser(username);
+            
 
             if (user.getPassword().equals(password)) {
                 return user;

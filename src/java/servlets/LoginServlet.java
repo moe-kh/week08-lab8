@@ -7,12 +7,15 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import services.AccountService;
+import services.UserService;
 
 /**
  *
@@ -26,7 +29,17 @@ public class LoginServlet extends HttpServlet {
         // more secure, logout if seeing login page
         HttpSession session = request.getSession();
         session.invalidate();
-        
+                String username = request.getParameter("username");
+       UserService u=new UserService();
+        int id;
+        try {
+            id = u.get(username).getRole().getRoleid();
+             session.setAttribute("id", id);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+           
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
@@ -39,6 +52,8 @@ public class LoginServlet extends HttpServlet {
         
         
         AccountService ac = new AccountService();
+     
+          
         if (ac.login(username, password) != null) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);

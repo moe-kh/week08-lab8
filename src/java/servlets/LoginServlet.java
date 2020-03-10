@@ -29,16 +29,7 @@ public class LoginServlet extends HttpServlet {
         // more secure, logout if seeing login page
         HttpSession session = request.getSession();
         session.invalidate();
-                String username = request.getParameter("username");
-       UserService u=new UserService();
-        int id;
-        try {
-            id = u.get(username).getRole().getRoleid();
-             session.setAttribute("id", id);
-        } catch (Exception ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           
+      
            
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
@@ -55,9 +46,27 @@ public class LoginServlet extends HttpServlet {
      
           
         if (ac.login(username, password) != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            response.sendRedirect("users");
+            
+          
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                
+                UserService u=new UserService();
+                int id;
+                System.out.println("oihd[ou qhewpf  ibwcpi  gbpqicyg    pieqygc");
+                try{
+                id = u.get(username).getRole().getRoleid();
+                System.out.println(id);
+                session.setAttribute("id", id);
+                response.sendRedirect("users");
+            } catch (Exception ex) {
+                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
+                       
+            
+           
+            
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }

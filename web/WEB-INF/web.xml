@@ -8,17 +8,19 @@
         <filter-name>AdminFilter</filter-name>
         <filter-class>filters.AdminFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-       <servlet-name>UserServlet</servlet-name>
-    </filter-mapping>
+   
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <servlet-name>HomeServlet</servlet-name>
     </filter-mapping>
+    
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <servlet-name>UserServlet</servlet-name>
+    </filter-mapping>
+     <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+       <servlet-name>UserServlet</servlet-name>
     </filter-mapping>
     <servlet>
         <servlet-name>UserServlet</servlet-name>
@@ -58,6 +60,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login</welcome-file>
+        <welcome-file>users</welcome-file>
     </welcome-file-list>
 </web-app>

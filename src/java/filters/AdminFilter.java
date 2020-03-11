@@ -26,7 +26,8 @@ import org.apache.jasper.tagplugins.jstl.core.Catch;
 import services.UserService;
 
 /**
- *
+ *athunentication= Authn(validate identity)
+ * Authorization = Authz(check permissions or rights)
  * @author 794456
  */
 public class AdminFilter implements Filter {
